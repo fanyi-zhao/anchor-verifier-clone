@@ -1,0 +1,18 @@
+#!/bin/bash
+
+echo "## Pulling"
+git pull
+
+echo "## Building anchor"
+cd /home/ubuntu/Synchronicity/workspace/Synchronicity
+make
+
+echo "## Building server"
+cd /home/ubuntu/Synchronicity/workspace/web/
+make
+
+echo "## Starting Server"
+cd /home/ubuntu/Synchronicity/workspace/web/
+sudo /usr/bin/python3 -u server.py -t 80
+
+exit 0

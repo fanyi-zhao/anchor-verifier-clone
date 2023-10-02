@@ -1,0 +1,14 @@
+#!/bin/bash
+
+
+export ANCHOR_HOME=`pwd`/../Synchronicity/
+export PATH=${ANCHOR_HOME}/commands:${PATH}:${ANCHOR_HOME}/boogie/Binaries/
+
+scala -J-Xmx512m -J-Xss40m -classpath ${ANCHOR_HOME}/bin anchor.tool.AnchorServer \
+       -noWarn \
+       -quiet \
+       -snapshots \
+       -verify=MethodSpecs \
+       -B=-proverOpt:O:memory_max_size=400 \
+       $*
+

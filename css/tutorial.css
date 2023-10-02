@@ -1,0 +1,369 @@
+/*
+ * I add this to html files generated with pandoc.
+ */
+
+pre > code.sourceCode > span { line-height: 1.25; display: inline }
+
+code.anchor > div > div { background-color: white; }
+
+.mover {
+  color : #5962F2;
+  font-size: 1rem;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', 'Droid Sans Mono', monospace;
+}
+
+.keyword {
+  color : #91197F;
+  font-size: 1rem;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', 'Droid Sans Mono', monospace;
+}
+
+.const {
+  color : #5962F2;
+  font-size: 1rem;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', 'Droid Sans Mono', monospace;
+}
+
+.smallcaps {
+  font-variant: small-caps;
+}
+
+.ace-chrome .ace_indent-guide {
+  background: none;
+}
+
+.ff {
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+}
+
+.toc { 
+  width:200px; 
+  font-size:.85rem; 
+  overflow-y: auto;
+  margin-top: 10px; 
+}
+.toc, .toc ul { padding: 0; }
+.toc ul { margin-left: 0; margin-bottom: 20px; list-style: none; }
+.toc ul > li > a { display: block; color:var(--dark)}
+.toc ul > li > a:hover,
+.toc ul > li > a:focus { text-decoration: none; background-color: #eeeeee; }
+.toc ul { margin-bottom: 0; }
+.toc ul > li > ul { padding-left: 10px; }
+.toc ul > li > a, .toc ul > li > a { padding-top: 5px; padding-bottom: 5px; }
+
+
+.h-60 {
+  height: 60% !important;
+}
+
+.h-40 {
+  height: 40% !important;
+}
+
+.ace_static_highlight {
+  font-size: 12pt;
+  line-height: 1.5em;
+  color: #495057;
+  background-color: var(--light);
+  }
+
+#tutorial {
+    color: #333;
+    font-family: Palatino, 'Palatino Linotype', Times, 'Times New Roman', serif;
+    font-size: 18px;
+    line-height: 1.7;
+    padding: 1em;
+    margin: auto;
+    max-width: 47em;
+    background: #fefefe;
+  }
+  
+  #tutorial a {
+    color: #0645ad;
+    text-decoration: none;
+  }
+  
+  #tutorial a:visited {
+    color: #0b0080;
+  }
+  
+  #tutorial a:hover {
+    color: #06e;
+  }
+  
+  #tutorial a:active {
+    color: #faa700;
+  }
+  
+  #tutorial a:focus {
+    outline: thin dotted;
+  }
+  
+  #tutorial *::-moz-selection {
+    background: rgba(255, 255, 0, 0.3);
+    color: #000;
+  }
+  
+  #tutorial *::selection {
+    background: rgba(255, 255, 0, 0.3);
+    color: #000;
+   }
+  
+   #tutorial a::-moz-selection {
+    background: rgba(255, 255, 0, 0.3);
+    color: #0645ad;
+  }
+  
+  #tutorial a::selection {
+    background: rgba(255, 255, 0, 0.3);
+    color: #0645ad;
+  }
+  
+  #tutorial p {
+    margin: 1em 0;
+  }
+  
+  #tutorial img {
+    max-width: 100%;
+  }
+  
+  #tutorial h1 {
+    color: #111;
+    line-height: 125%;
+    margin-top: 1em;
+    font-weight: normal;
+  }
+
+  #tutorial h2, 
+  #tutorial h3, 
+  #tutorial h4, 
+  #tutorial h5, 
+  #tutorial h6 {
+    color: #111;
+    line-height: 125%;
+    margin-top: 2em;
+    font-weight: normal;
+  }
+
+  #tutorial h5, 
+  #tutorial h6 {
+    margin-bottom: -0.5em;
+  }
+
+  #tutorial h4,
+  #tutorial h5, 
+  #tutorial h6 {
+    font-weight: bold;
+  }
+  
+  #tutorial h1 {
+    font-size: 2.5em;
+    padding-bottom: 0.1em;
+    padding-top: 0.3em;
+    border-bottom: 5px var(--secondary) solid;
+    border-top:  5px var(--secondary) solid;
+  }
+  
+  #tutorial h2 {
+    font-size: 2em;
+  }
+  
+  #tutorial h3 {
+    font-size: 1.5em;
+  }
+  
+  #tutorial h4 {
+    font-size: 1.2em;
+  }
+  
+  #tutorial h5 {
+    font-size: 1em;
+  }
+  
+  #tutorial h6 {
+    font-size: 0.9em;
+  }
+  
+  #tutorial blockquote {
+    color: #666666;
+    margin: 0;
+    padding-left: 3em;
+    border-left: 0.5em #EEE solid;
+  }
+  
+  #tutorial hr {
+    display: block;
+    height: 2px;
+    border: 0;
+    border-top: 1px solid #aaa;
+    border-bottom: 1px solid #eee;
+    margin: 1em 0;
+    padding: 0;
+  }
+  
+  #tutorial pre, 
+  #tutorial code, 
+  #tutorial kbd, 
+  #tutorial samp {
+    font-size: 12pt;
+    line-height: 1.5em;
+    color: #495057;
+    /* background-color: var(--light); */
+    /* color: #000; */
+    /* background-color: #EFEFEF; */
+    background-color: #FFFFFF; 
+    /* font-family: monospace, monospace; */
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', 'Droid Sans Mono', monospace;
+    font-size: 12pt;
+/*    line-height: 1.428; */
+  }
+
+  #tutorial pre > code.sourceCode > span {line-height: 1.428;}
+
+  
+  #tutorial pre {
+    white-space: pre;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    padding: 0.25em;
+  }
+  
+  #tutorial b, 
+  #tutorial strong {
+    font-weight: bold;
+  }
+  
+  #tutorial dfn {
+    font-style: italic;
+  }
+  
+  #tutorial ins {
+    background: #ff9;
+    color: #000;
+    text-decoration: none;
+  }
+  
+  #tutorial mark {
+    background: #ff0;
+    color: #000;
+    font-style: italic;
+    font-weight: bold;
+  }
+  
+  #tutorial sub,
+  #tutorial sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+  }
+  
+  #tutorial sup {
+    top: -0.5em;
+  }
+  
+  #tutorial sub {
+    bottom: -0.25em;
+  }
+  
+  #tutorial ul,
+  #tutorial ol {
+    margin: 1em 0;
+    padding: 0 0 0 2em;
+  }
+  
+  #tutorial li p:last-child {
+    margin-bottom: 0;
+  }
+  
+  #tutorial ul ul, 
+  #tutorial ol ol {
+    margin: .3em 0;
+  }
+  
+  #tutorial dl {
+    margin-bottom: 1em;
+  }
+  
+  #tutorial dt {
+    font-weight: bold;
+    margin-bottom: .8em;
+  }
+  
+  #tutorial dd {
+    margin: 0 0 .8em 2em;
+  }
+  
+  #tutorial dd:last-child {
+    margin-bottom: 0;
+  }
+  
+  #tutorial img {
+    border: 0;
+    -ms-interpolation-mode: bicubic;
+    vertical-align: middle;
+  }
+  
+  #tutorial figure {
+    display: block;
+    text-align: center;
+    margin: 1em 0;
+  }
+  
+  #tutorial figure 
+  #tutorial img {
+    border: none;
+    margin: 0 auto;
+  }
+  
+  #tutorial figcaption {
+    font-size: 0.8em;
+    font-style: italic;
+    margin: 0 0 .8em;
+  }
+  
+  #tutorial table {
+    margin-bottom: 2em;
+    /* border-bottom: 1px solid #ddd;
+    border-right: 1px solid #ddd; */
+    line-height: 1em;
+    border-spacing: 0;
+    border-collapse: collapse;
+  }
+  
+  #tutorial table th {
+    padding: .25em 1em;
+    background-color: #eee;
+    /* border-top: 1px solid #ddd;
+    border-left: 1px solid #ddd; */
+  }
+  
+  #tutorial table td {
+    padding: 0.2em 1em;
+    /* border-top: 1px solid #ddd;
+    border-left: 1px solid #ddd; */
+    vertical-align: top;
+  }
+  
+  #tutorial .author {
+    font-size: 1.2em;
+    text-align: center;
+  }
+
+  @media only screen and (min-width: 0px) {
+    #tutoral body {
+     font-size: 12px;
+   }
+ }
+
+  @media only screen and (min-width: 480px) {
+    #tutoral body {
+     font-size: 16px;
+   }
+ }
+
+ @media only screen and (min-width: 768px) {
+    #tutoral body {
+      font-size: 18px;
+    }
+  }

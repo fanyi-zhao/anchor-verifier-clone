@@ -1,0 +1,21 @@
+
+class AtomicInc {
+
+  noABA volatile int n  
+    moves_as isRead() ? N
+                      : (newValue == this.n + 1 ? N : E)
+	  yields_as newValue >= this.n;
+
+  modifies this;
+  ensures this.n == old(this.n) + 1;
+  ensures $result == this.n;
+  public int inc() {
+    while (true) {
+      int x = this.n;
+      if (cas(this, n, x, x + 1)) {   
+        return x + 1;   // this fixes a typo in the paper...
+      }
+      yield;
+    }
+  }
+}

@@ -1,0 +1,75 @@
+snippet /stack
+
+	class Node {
+	  int item  moves_as isLocal(this) ? threadlocal : readonly;
+	  Node next moves_as isLocal(this) ? threadlocal : readonly;
+
+	  Node(int item, Node next) {
+	    this.item = item;
+	    this.next = next;
+	  }
+	}
+	
+	
+
+
+
+
+
+	class Stack {
+
+	  Node head;
+
+	  public void push(int item) {
+	    acquire(this);
+	    Node node = new Node(item, this.head);
+	    this.head = node;
+	    release(this);
+	  }
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+snippet /pop
+	  public int pop() {
+	    acquire(this);
+	    while (this.head == null) 
+	      invariant holds(this); {
+	      release(this);
+	      acquire(this);
+	    }
+	    int value = this.head.item;
+	    this.head = this.head.next;
+	    release(this);
+	    return value;
+	  }
+
+
+snippet /buggy
+	public void buggy() {
+	  this.push(10);
+	  assert this.head.item == 10;
+	}
+
+snippet /pushspec
+	modifies this;
+	ensures this.head.next == old(this.head); 
+	ensures this.head.item == item;
+
+snippet /popspec
+	modifies this;
+	ensures old(this.head) != null;
+	ensures $result == old(this.head.item); 
+	ensures this.head == old(this.head.next);

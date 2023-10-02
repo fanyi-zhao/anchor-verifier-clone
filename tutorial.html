@@ -1,0 +1,1648 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Scrollbar Custom CSS -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css"> -->
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    crossorigin="anonymous">
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+    crossorigin="anonymous"></script>
+  <script src="ace/build/src/ace.js" type="text/javascript" charset="utf-8"></script>
+  <script src="ace/build/src/ext-language_tools.js"></script>
+
+  <script src="https://kit.fontawesome.com/b306479e29.js" crossorigin="anonymous"></script>
+
+
+  <title>Anchor</title>
+
+  <link rel="stylesheet" href="css/anchor.css">
+  <link rel="stylesheet" href="css/tutorial.css">
+
+  
+</head>
+
+
+<body class="full-height fixed-top overflow-hidden">
+
+  <nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
+    <a class="navbar-brand" href="index.html"><i class="fas fa-anchor"></i> &nbsp; The Anchor Verifier</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+      data-trigger="focus" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="tutorial.html" target="_blank">Tutorial</a>
+        </li>
+        <li class="nav-item dropdown active">
+          <a class="nav-link dropdown-toggle" href="#" id="dropdown10" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">Examples</a>
+          <div class="dropdown-menu" aria-labelledby="dropdown10" id="examples">
+		  <a class="dropdown-item" href="examples/ErrorMessage1.anchor">ErrorMessage1</a>
+		  <a class="dropdown-item" href="examples/ErrorMessage2.anchor">ErrorMessage2</a>
+		  <a class="dropdown-item" href="examples/ErrorMessage3.anchor">ErrorMessage3</a>
+		  <a class="dropdown-item" href="examples/FastTrack.anchor">FastTrack</a>
+		  <a class="dropdown-item" href="examples/AtomicInt.anchor">AtomicInt</a>
+		  <a class="dropdown-item" href="examples/HandOverHandLocking.anchor">HandOverHandLocking</a>
+		  <a class="dropdown-item" href="examples/LockFreeQueue.anchor">LockFreeQueue</a>
+		  <a class="dropdown-item" href="examples/LockFreeStack.anchor">LockFreeStack</a>
+		  <a class="dropdown-item" href="examples/QueueWithAbstraction.anchor">QueueWithAbstraction</a>
+		  <a class="dropdown-item" href="examples/Stack.anchor">Stack</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown active">
+          <a class="nav-link dropdown-toggle" href="#" id="dropdown11" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">Docs</a>
+          <div class="dropdown-menu" aria-labelledby="dropdown11" id="options">
+            <a class="dropdown-item" href="tutorial.html" target="_blank">Anchor Tutorial</a>  
+            <a class="dropdown-item" href="errors.html" target="_blank">Understanding Error Messages</a>  
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">The Paper</a>
+            <a class="dropdown-item" href="#">The Talk</a>
+          </div>
+        </li>
+
+        <li class="nav-item dropdown active">
+          <a class="nav-link dropdown-toggle" href="#" id="dropdown12" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">Options</a>
+          <div class="dropdown-menu" aria-labelledby="dropdown12" id="options">
+            <a class="dropdown-item" href="#" onclick="document.getElementById('editor').style.fontSize = '16px'"
+              ;>Normal Font</a>
+            <a class="dropdown-item" href="#" onclick="document.getElementById('editor').style.fontSize = '20px'" ;>Big
+              Font</a>
+          </div>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link mr-0 pr-1" href="https://users.soe.ucsc.edu/~cormac/">Cormac Flanagan and</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link ml-0 pl-0" href="http://www.cs.williams.edu/~freund/index.html">Stephen Freund</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main" role="main" class="container-fluid mt-5 mb-0 h-100">
+    <div class="row mb-0 h-100 flex-nowrap">
+      <div class="nav col-1 sticky-top mt-4 toc ml-2" style="width:200px; font-size:.85rem; overflow-y: auto;">
+                <ul>
+        <li><a href="#welcome">Welcome!</a></li>
+        <li><a href="#liptons-theory-of-reduction">Lipton's Theory of Reduction</a></li>
+        <li><a href="#synchronization-specifications">Synchronization Specifications</a></li>
+        <li><a href="#pc-equivalence">P/C Equivalence</a></li>
+        <li><a href="#assertions-and-debugging">Assertions and Debugging</a></li>
+        <li><a href="#method-specifications">Method Specifications</a></li>
+        <li><a href="#non-blocking-concurrency">Non-blocking Concurrency</a></li>
+        <li><a href="#ghost-fields">Ghost Fields</a></li>
+        <li><a href="#additional-details-and-features">Additional Details and Features</a><ul>
+        <li><a href="#abbreviations">Abbreviations</a></li>
+        <li><a href="#which-objects-are-thread-local">Which Objects are Thread Local?</a></li>
+        <li><a href="#modeling-heap-changes-at-yield-points">Modeling Heap Changes at Yield Points</a></li>
+        <li><a href="#aba-freedom">ABA Freedom</a></li>
+        <li><a href="#object-invariants">Object Invariants</a></li>
+        <li><a href="#loop-termination">Loop Termination</a></li>
+        <li><a href="#non-atomic-method-specifications">Non-Atomic Method Specifications</a></li>
+        </ul></li>
+        <li><a href="#limitations">Limitations</a></li>
+        </ul>
+              </div>
+      <div class="col-5 border ml-2 mb-0 mt-4" style="overflow-y: auto;">
+        <div id="tutorial">
+<h1>Getting Started with Anchor</h1>
+<h2 id="welcome">Welcome!</h2>
+<p>Writing correct concurrent code can be a daunting task for even the most expert programmer. <span class="smallcaps">Anchor</span> is designed to make that task easier by verifying that code is free of concurrency errors and also behaves as the programmer intended. To use <span class="smallcaps">Anchor</span>, a programmer adds annotations to code written in a subset of Java that enable <span class="smallcaps">Anchor</span> to verify key correctness properties. You can get a sneak peak of thsese annotations by copying the following code snippet to the editor by clicking <i class="far fa-copy"></i>. (And you can copy and then verify the snippet by clicking <i class="fas fa-anchor"></i>).</p>
+<pre class="anchor"><code>class Stack { 
+  ...
+}
+
+/*****/
+class Node {
+  int item  moves_as isLocal(this) ? B : (isRead() ? B : E);
+  Node next moves_as isLocal(this) ? B : (isRead() ? B : E);
+
+  Node(int item, Node next) {
+    this.item = item;
+    this.next = next;
+  }
+}
+
+class Stack {
+
+  Node head moves_as holds(this) ? B : E;
+
+  modifies this;
+  ensures this.head.next == old(this.head);
+  ensures this.head.item == item;
+  public void push(int item) {
+    acquire(this);
+    Node node = new Node(item, this.head);
+    this.head = node; 
+    release(this);
+  }
+
+  modifies this;
+  ensures old(this.head) != null;
+  ensures $result == old(this.head.item); 
+  ensures this.head == old(this.head.next);
+  public int pop() {
+    acquire(this);
+    while (this.head == null) 
+      invariant holds(this);
+    {
+      release(this);
+      yield;
+      acquire(this);
+    }
+    int value = this.head.item;
+    this.head = this.head.next;
+    release(this);
+    return value;
+  }
+}
+
+/*****/
+VERIFY</code></pre>
+<p>This example is a thread-safe <code>Stack</code> that represents the stack as a linked list of <code>Node</code> objects and protects accesses to its <code>head</code> field with the enclosing <code>Stack</code> object's lock. <span class="smallcaps">Anchor</span> verifies five properties for <code>Stack</code>:</p>
+<ol style="list-style-type: decimal">
+<li>The code satisfies the <a href="#synchronization-specifications">synchronization specifications</a> on memory locations that describe the conditions under which accesses are allowed and how those accesses <em>commute</em> with steps of other threads.</li>
+<li>The code is free of <a href="#validity">data race conditions</a> (and hence exhibits sequentially-consistent behavior),</li>
+<li>All methods are <a href="#pc-equivalence">P/C equivalent</a>, meaning that <code>yield</code> annotations document all location in the source where thread interference may occur.</li>
+<li>All methods satisfy their <a href="#method-specifications">method specifications</a>.</li>
+<li>The program does not go wrong due to <a href="#assertions-and-debugging">assertion failures</a>.</li>
+</ol>
+<p>Some of these guarantees may be familiar, while others may need some explanation. We illustrate all of them below, and while using <span class="smallcaps">Anchor</span> doesn't make concurrent programmer trivial, it does provide an effective means to document and check synchronization disciplines and expectated behavior.</p>
+<p>This tutorial illustrates how to use <span class="smallcaps">Anchor</span> on a variety of examples. The techniques are perhaps most accessible to those already somewhat familiar with program verification. For those who might prefer to gain an understanding of verification of sequential code before diving into concurrency, we highly recommend checking out <a href="https://rise4fun.com/Dafny/tutorial">Dafny</a>. Indeed, many aspects of our work on <span class="smallcaps">Anchor</span> are inspired by earlier tools like Dafny.</p>
+<p>To understand the annotations we've added for <span class="smallcaps">Anchor</span>, we first take a brief tour of the theory underlying our technique...</p>
+<h2 id="liptons-theory-of-reduction">Lipton's Theory of Reduction</h2>
+<p><span class="smallcaps">Anchor</span>'s reasoning is based on Lipton's theory of reduction. Specifically, <span class="smallcaps">Anchor</span> reasons about how memory and synchronization operations of a thread commute with concurrent operations of other threads:</p>
+<ul>
+<li><p><span class="mover font-weight-bold">R</span>: An operation is a right-mover if it can commute <em>to the right</em> of any subsequent operation by a different thread without changing the resulting state. For example, a lock acquire by is a right-mover because any subsequent operation by another thread cannot modify that lock.</p></li>
+<li><p><span class="mover font-weight-bold">L</span>: An operation is a left-mover if it can commute <em>to the left</em> of a preceding operation by a different thread without changing the resulting state. For example, a lock release is a left-mover because any preceding operation by another thread cannot modify that lock.</p></li>
+<li><p><span class="mover font-weight-bold">B</span>: An operation is a both-mover if it is both a left and a right mover. For example, a race-free memory access is a both-mover because there are no concurrent, conflicting accesses.</p></li>
+<li><p><span class="mover font-weight-bold">N</span>: operation is a non-mover if it is neither a left- nor a right-mover. For example, an access to a race-prone variable is a non-mover since there may be concurrent writes.</p></li>
+</ul>
+<p>Consider a sequence of steps performed by a particular thread that consists of</p>
+<ul>
+<li>zero or more right-movers (<span class="mover font-weight-bold">R</span>);</li>
+<li>at most one non-mover (<span class="mover font-weight-bold">N</span>); and</li>
+<li>zero or more left-movers (<span class="mover font-weight-bold">L</span>).</li>
+</ul>
+<p>Such a sequence <span class="mover font-weight-bold">R</span>*;<span class="mover font-weight-bold">N</span>?;<span class="mover font-weight-bold">L</span>* is <em>reducible</em>; any interleaved steps of other threads can be &quot;commuted out&quot; to yield an execution in which the steps run in a cooperative fashion without interleaved steps from other threads. For example, a lock acquire followed by race-free memory accesses and then a lock release is reducible. The figure below illustrates how such a sequence of steps interleaved with steps of other threads may be commuted within a trace to produce a sequence with the same behavior, but without interleaved steps.</p>
+<div class="d-flex justify-content-center">
+<table>
+<thead>
+<tr class="header">
+<th align="left">Original Trace</th>
+<th align="left"></th>
+<th align="left">Trace after Reduction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="mover font-weight-bold">R</span> <code>acquire(m)</code></td>
+<td align="left"></td>
+<td align="left"><span class="mover font-weight-bold"><span class="invisible">E</span></span> <span style="color:darkred;">...</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="mover font-weight-bold"><span class="invisible">E</span></span> <span style="color:darkred;">...</span></td>
+<td align="left"></td>
+<td align="left"><span class="mover font-weight-bold"><span class="invisible">E</span></span> <span style="color:darkred;">...</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="mover font-weight-bold">B</span> <code>tmp = this.x</code></td>
+<td align="left"></td>
+<td align="left"><span class="mover font-weight-bold">R</span> <code>acquire(m)</code></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="mover font-weight-bold"><span class="invisible">E</span></span> <span style="color:darkred;">...</span></td>
+<td align="left"></td>
+<td align="left"><span class="mover font-weight-bold">B</span> <code>tmp = this.x</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="mover font-weight-bold">B</span> <code>this.x = tmp + 1</code></td>
+<td align="left"></td>
+<td align="left"><span class="mover font-weight-bold">B</span> <code>this.x = tmp + 1</code></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="mover font-weight-bold"><span class="invisible">E</span></span> <span style="color:darkred;">...</span></td>
+<td align="left"></td>
+<td align="left"><span class="mover font-weight-bold">L</span> <code>release(m)</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="mover font-weight-bold">L</span> <code>release(m)</code></td>
+<td align="left"></td>
+<td align="left"><span class="mover font-weight-bold"><span class="invisible">E</span></span> <span style="color:darkred;">...</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<span class="smallcaps">Anchor</span> uses this theory to show that each method is <a href="#pc-equivalence">P/C equivalent</a> by verifying that all execution paths consist of reducible sequences
+<p style="text-align:center;">
+<span class="mover font-weight-bold">R</span>*;<span class="mover font-weight-bold">N</span>?;<span class="mover font-weight-bold">L</span>*
+</p>
+<p>separated by yields.</p>
+<h2 id="synchronization-specifications">Synchronization Specifications</h2>
+<p>To leverage Lipton's theory, <span class="smallcaps">Anchor</span> relies on synchronization specifications that describe both</p>
+<ol style="list-style-type: decimal">
+<li>when each thread is permitted to access (read or write) each shared memory location, and</li>
+<li>how each permitted access <em>commutes</em> with potential concurrent accesses of other threads.</li>
+</ol>
+<p>A basic synchronization specification is one of the standard mover classifications (<span class="mover font-weight-bold">R</span>, <span class="mover font-weight-bold">L</span>, <span class="mover font-weight-bold">B</span>, <span class="mover font-weight-bold">N</span>) or the special <em>error mover</em> <span class="mover font-weight-bold">E</span> to indicate that an access is not permitted. Commutativity can also be conditioned on a boolean expression.</p>
+<p>As an example, consider the field <code>head</code> in our <code>Stack</code> example above. It protected by the lock of the enclosing object. If a thread accesses <code>head</code> without holding that lock, it is an error (denoted <span class="mover font-weight-bold">E</span> in our specification language). If a thread holds that lock, then an access to <code>head</code> commutes across preceding and succeeding operations of other threads because other threads cannot simultaneously access that lock-protected field and is thus a both mover.</p>
+<p>We write this specification in <span class="smallcaps">Anchor</span> as a <span class="keyword">moves_as</span> annotation:</p>
+<pre class="anchor"><code>class Stack {
+  Node head moves_as holds(this) ? B : E;
+}
+
+/*****/
+class Node {
+  // ...
+}
+
+class Stack {
+  Node head moves_as holds(this) ? B : E;
+}
+
+/*****/
+VERIFY</code></pre>
+<p>Synchronization mechanisms are often designed around a rich variety of conditions, including which locks are held, whether an access is a read or a write, whether the enclosing object is thread local, the identity of the accessing thread, and the values of other variables or other aspects of program state. Such conditions are readily captured by <span class="smallcaps">Anchor</span>'s <span class="keyword">moves_as</span> synchronization specifications.</p>
+<p>For the <code>Node</code> class in our example, both fields have a specification indicating that accesses are both-movers as long as the node is thread-local (that is, accessible only to the current thread). If a node is not thread-local, then its fields are readonly, meaning they have both-mover read permissions but error write permissions:</p>
+<pre class="anchor"><code>class Node {
+  int item  moves_as isLocal(this) ? B : (isRead() ? B : E);
+  Node next moves_as isLocal(this) ? B : (isRead() ? B : E);
+}
+
+/*****/
+class Node {
+  int item  moves_as isLocal(this) ? B : (isRead() ? B : E);
+  Node next moves_as isLocal(this) ? B : (isRead() ? B : E);
+}
+
+class Stack {
+  Node head moves_as holds(this) ? B : E;
+}
+
+/*****/
+VERIFY</code></pre>
+<!-- Here's one last example in which the specification refers to the
+value of a field to determine the communitivity of an access:
+
+
+```anchor
+volatile int value 
+    moves_as this.value != -1 ? N : (isRead() ? R : E);
+
+/*****/
+class Example
+  // reads/writes are non-movers, until item4 becomes -1.
+  // Then writes are prohibited, and reads are right-movers.
+  volatile int value
+      moves_as this.value != -1 ? N : (isRead() ? R : E);
+
+/*****/
+VERIFY
+```
+
+}
+ -->
+<p>The boolean expressions in <span class="keyword">moves_as</span> annotations can be any valid boolean expressions and can also include the following special variables and predicates:</p>
+<table>
+<colgroup>
+<col width="7%" />
+<col width="92%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td align="right"><span class="keyword">tid</span></td>
+<td align="left">the thread identifier of the accessing thread.</td>
+</tr>
+<tr class="even">
+<td align="right"><span class="keyword">isRead</span><code>()</code></td>
+<td align="left">whether the access is a read.</td>
+</tr>
+<tr class="odd">
+<td align="right"><span class="keyword">newValue</span></td>
+<td align="left">the value being written, if the access is a write.</td>
+</tr>
+<tr class="even">
+<td align="right"><span class="keyword">holds</span><code>(o)</code></td>
+<td align="left">whether the lock for the object denoted by the expression <code>o</code> is held.</td>
+</tr>
+<tr class="odd">
+<td align="right"><span class="keyword">isLocal</span><code>(o)</code></td>
+<td align="left">whether <code>o</code> is accessible by only the current thread.</td>
+</tr>
+</tbody>
+</table>
+<p>Array types also include <span class="keyword">moves_as</span> annotations capturing the permission for accessing each array element. Since array types can get pretty large pretty quickly, and are often repeated in the code, we use <span class="keyword">array</span> declarations to provide short names for array types.</p>
+<p>Here are two quick examples. This first is a field whose type is an array in which elements are all protected by the enclosing objects lock. Further, the field itself is protected by the same lock.</p>
+<pre class="anchor"><code>class ArrayExample {
+
+  array UsesLock = int[moves_as holds(this) ? B : E]; 
+  
+  [UsesLock] elems moves_as isLocal(this) 
+                            ? B 
+                            : holds(this) ? B : E;
+
+  // ...
+}
+
+/*****/
+class ArrayExample {
+
+  array UsesLock = int[moves_as holds(this) ? B : E];
+  
+  [UsesLock] elems moves_as isLocal(this) ? B : holds(this) ? B : E;
+
+  public ArrayExample() {
+    this.elems = new [UsesLock](10);
+  }
+
+  requires 0 &lt;= i &lt; 10;
+  public void access(int i) {
+    synchronized(this) {   // acquire/release around enclosed block.
+      this.elems[i] == 0;
+    }
+  }
+}
+
+/*****/
+VERIFY</code></pre>
+<p>The second is an array in which a thread may only access the element at the index corresponding to its <span class="keyword">tid</span>.</p>
+<pre class="anchor"><code>array ThreadLocal = int[moves_as index == tid ? B : E];
+
+/*****/
+class ArrayExample {
+
+  array ThreadLocal = int[moves_as index == tid ? B : E];
+
+  [ThreadLocal] elems moves_as (isLocal(this) || isRead()) ? B : E;
+
+  public ArrayExample() {
+    this.elems = new [ThreadLocal](10);
+  }
+
+  requires 0 &lt;= tid &lt; 10;
+  public void access() {
+    this.elems[tid] == 0;
+  }
+}
+
+/*****/
+VERIFY</code></pre>
+<p><span class="smallcaps">Anchor</span> checks synchronization specifications for the following two properties: <em>validity</em> and <em>stability</em>. These are covered next.</p>
+<p>(One small detail to keep in mind: any field that may be given <span class="mover font-weight-bold">L</span>, <span class="mover font-weight-bold">R</span>, or <span class="mover font-weight-bold">N</span> commuting behavior may be prone to data races (unordered conflicting accesses). We require those fields to be declared <span class="keyword">volatile</span> to ensure sequential consistency, which provides a strong guarantee to the programmer even on platforms with relaxed memory models.)</p>
+<h4 id="validity">Validity</h4>
+<p>Synchronization specifications must exclude commuting actions that might change program state. For example, in any context where the specification indicates that a reading a field is a right-mover, all writes to that field must be forbidden. Otherwise, the read could commute to the right past a write that changes the value stored in the field.</p>
+<p>The following specification is not valid, because it permits such reads to commute across writes.<br />
+(Whenever we show you buggy code, we change our verify button from <i class="fas fa-anchor"></i> to <i class="fas fa-bug"></i>.)</p>
+<pre class="anchor"><code>  volatile int value moves_as B;
+
+/*****/
+class Example {
+  volatile int value moves_as B;
+}
+/*****/
+VERIFY_BUGGY</code></pre>
+<p>Attempting to verify this snippet produces a pair of operations by different threads that violate the validity requirement.</p>
+<p>Here is a declaration with a more interesting validity violation. The field <code>value</code> can be updated to any value until it becomes -1. At that point, it becomes readonly. The specification indicates that all reads and writes are initially non-movers until <code>value</code> does become -1. At that point, only reads are allowed and are both-movers.</p>
+<pre class="anchor"><code>volatile int value 
+  moves_as this.value != -1 ? N : (isRead() ? B : E);
+
+/*****/
+class Example {
+volatile int value 
+  moves_as this.value != -1 ? N : (isRead() ? B : E);
+}
+/*****/
+VERIFY_BUGGY</code></pre>
+<p>Verifying this code identifies a validity problem, and <span class="smallcaps">Anchor</span> shows a pair of steps by different threads that commute according to the specification but that change program behavior when they do. In particular, a read of -1 can left-commute past a write to the field. However, this is problematic since the field's value might not be -1 before the write occurs, meaning the read will then see a different value. We can rule out the problematic case by permitting reads of -1 to right-commute but not left-commute:</p>
+<pre class="anchor"><code>volatile int value 
+  moves_as this.value != -1 ? N : (isRead() ? R : E);
+
+/*****/
+class Example {
+volatile int value 
+  moves_as this.value != -1 ? N : (isRead() ? R : E);
+}
+/*****/
+VERIFY</code></pre>
+<h4 id="stability">Stability</h4>
+<p>The second correctness requirement for synchronization specifications is <em>stability</em>. A synchroniation specification is stable if the permission to read or write a field is either invariant over interleaved writes, or at least changed only in ways that do not invalidate <span class="smallcaps">Anchor</span>'s reduction-based reasoning. This is a more subtle property that validity, but also one that doesn't come up often. We'll talk about it more in the <a href="errors.html" target="_blank">Errors</a> document.</p>
+<h2 id="pc-equivalence">P/C Equivalence</h2>
+<p>Now that we've explored <span class="smallcaps">Anchor</span>'s synchronization specifications, let's see what it guarantees about methods.</p>
+<p><span class="smallcaps">Anchor</span> programs include <span class="keyword">yield</span> annotations documenting where thread interference is observable. <span class="smallcaps">Anchor</span> uses the synchronization specifications to verify that these annotations are placed correctly. As such, <span class="smallcaps">Anchor</span> ensures that all <span class="keyword">public</span> methods exhibit the same behavior under both</p>
+<ul>
+<li>a <em>preemptive</em> scheduler that context switches at any point, and</li>
+<li>a <em>cooperative</em> scheduler that context switches only at <span class="keyword">yield</span> annotations.</li>
+</ul>
+<p>We call this guarantee <strong>P/C equivalence</strong>. It enables subsequent higher-level (formal or informal) reasoning to be based on the more intuitive cooperative scheduler, even though the code runs on standard, preemptive hardware. In addition, code without <span class="keyword">yield</span>s is guaranteed to be atomic.</p>
+<h4 id="stack.push">Stack.push()</h4>
+<p>We'll now add a <code>push</code> method to <code>Stack</code> that creates and inserts a new <code>Node</code> at <code>head</code>.</p>
+<pre class="anchor"><code>public void push(int item) {
+  acquire(this);
+  Node node = new Node(item, this.head);
+  this.head = node; 
+  release(this);
+}
+
+/*****/
+class Node {
+  int item  moves_as isLocal(this) ? B : (isRead() ? B : E);
+  Node next moves_as isLocal(this) ? B : (isRead() ? B : E);
+
+  Node(int item, Node next) {
+    this.item = item;
+    this.next = next;
+  }
+}
+
+class Stack {
+  Node head moves_as holds(this) ? B : E;
+
+  public void push(int item) {
+    acquire(this);
+    Node node = new Node(item, this.head);
+    this.head = node; 
+    release(this);
+  }
+}
+
+/*****/
+VERIFY</code></pre>
+<p>To respect the synchronization discipline, the <code>push</code> method acquires the lock on the stack object prior to accessing <code>head</code>. The <code>push()</code> method is atomic (reducible) since it consists of a lock acquire (<span class="mover font-weight-bold">R</span>), a lock-protected read of <code>head</code> (<span class="mover font-weight-bold">B</span>), initialization of a thread-local node (<span class="mover font-weight-bold">B</span>), a lock-protected write to <code>head</code> (<span class="mover font-weight-bold">B</span>), and a lock release (<span class="mover font-weight-bold">L</span>), thus matching the pattern <span class="mover font-weight-bold">R</span>*;<span class="mover font-weight-bold">N</span>?;<span class="mover font-weight-bold">L</span>*.</p>
+<p>For field accesses, the synchronization discipline is evaluated at the current program point to determine its commutativity. For example, the write to <code>this.head</code> occurs when the lock for <code>this</code> is held, and evaluating the synchronization specification for <code>head</code> in this context yields <span class="mover font-weight-bold">B</span>.</p>
+<p>We can compare this to a broken version that fails to acquire the lock. If we try to verify this code, we get a reduction error, because the read of <code>this.head</code> occurs without the lock for <code>this</code> held, and the specification for <code>head</code> in this context yields <span class="mover font-weight-bold">E</span>. (If you click on the <span class="mover font-weight-bold">B</span> icon in the error message, you can see how <span class="smallcaps">Anchor</span> used the synchronization specification to conclude that that access is an error, namely that the current thread with id <span class="keyword">tid</span> does not hold the lock for <code>this</code>.)</p>
+<pre class="anchor"><code>public void push(int item) {
+  Node node = new Node(item, this.head);
+  this.head = node; 
+}
+
+/*****/
+class Node {
+  int item  moves_as isLocal(this) ? B : (isRead() ? B : E);
+  Node next moves_as isLocal(this) ? B : (isRead() ? B : E);
+
+  Node(int item, Node next) {
+    this.item = item;
+    this.next = next;
+  }
+}
+
+class Stack {
+  Node head moves_as holds(this) ? B : E;
+
+  public void push(int item) {
+    Node node = new Node(item, this.head);
+    this.head = node; 
+  }
+}
+
+/*****/
+VERIFY_BUGGY</code></pre>
+<h4 id="stack.pop">Stack.pop()</h4>
+<p>Now we'll add a pop method. The <code>pop()</code> method similarly acquires the stack's lock, but then busy waits until the stack has at least one element in it. While waiting, it releases and re-acquires the lock. Here's a first attempt at writing the code, but <span class="smallcaps">Anchor</span> won't be able to verify it quite yet.</p>
+<pre class="anchor"><code>public int pop() {
+  acquire(this);
+  while (this.head == null) {
+    release(this);
+    acquire(this);
+  }
+  int value = this.head.item;
+  this.head = this.head.next;
+  release(this);
+  return value;
+}
+
+/*****/
+class Node {
+  int item  moves_as isLocal(this) ? B : (isRead() ? B : E);
+  Node next moves_as isLocal(this) ? B : (isRead() ? B : E);
+
+  Node(int item, Node next) {
+    this.item = item;
+    this.next = next;
+  }
+}
+
+class Stack {
+  Node head moves_as holds(this) ? B : E;
+
+  public int pop() {
+    acquire(this);
+    while (this.head == null) {
+      release(this);
+      acquire(this);
+    }
+    int value = this.head.item;
+    this.head = this.head.next;
+    release(this);
+    return value;
+  }
+}
+
+/*****/
+VERIFY_BUGGY</code></pre>
+<p>If we inspect the error message <span class="smallcaps">Anchor</span> reports for the code, it tells us that <span class="smallcaps">Anchor</span> cannot determine that the lock for <code>this</code> is held at the loop head. While it may be clear to us that it is, we need to provide <span class="smallcaps">Anchor</span> with a loop invariant indicating that this is the case:</p>
+<pre class="anchor"><code>public int pop() {
+  ...
+  while (this.head == null) 
+    invariant holds(this);
+  {
+    release(this);
+    acquire(this);
+  }
+  ...
+}
+
+/*****/
+class Node {
+  int item  moves_as isLocal(this) ? B : (isRead() ? B : E);
+  Node next moves_as isLocal(this) ? B : (isRead() ? B : E);
+
+  Node(int item, Node next) {
+    this.item = item;
+    this.next = next;
+  }
+}
+
+class Stack {
+  Node head moves_as holds(this) ? B : E;
+
+  public int pop() {
+    acquire(this);
+    while (this.head == null)   
+      invariant holds(this);
+    {
+      release(this);
+      acquire(this);
+    }
+    int value = this.head.item;
+    this.head = this.head.next;
+    release(this);
+    return value;
+  }
+}
+
+/*****/
+VERIFY_BUGGY</code></pre>
+<p>For this version, <span class="smallcaps">Anchor</span> verifies that that loop invariant holds whenever we reach the top of the loop and is thus able to conclude that the access to <span class="keyword">this</span><code>.head</code> in the loop test is a both-mover.</p>
+<p>However, we still get an error, this time because the steps taken by <code>pop</code> don't match our reducible pattern. In particular, we have a left-mover <code>release</code> followed by a right-mover <code>acquire</code>. This indicates that other threads may change <code>head</code> between the release and acquire. Thus, we include a <span class="keyword">yield</span> at that point.</p>
+<pre class="anchor"><code>public int pop() {
+  ...
+  while (this.head == null) 
+    invariant holds(this);
+  {
+    release(this);
+    yield;
+    acquire(this);
+  }
+  ...
+}
+
+/*****/
+class Node {
+  int item  moves_as isLocal(this) ? B : (isRead() ? B : E);
+  Node next moves_as isLocal(this) ? B : (isRead() ? B : E);
+
+  Node(int item, Node next) {
+    this.item = item;
+    this.next = next;
+  }
+}
+
+class Stack {
+  Node head moves_as holds(this) ? B : E;
+
+  public int pop() {
+    acquire(this);
+    while (this.head == null)   
+      invariant holds(this);
+    {
+      release(this);
+      yield;
+      acquire(this);
+    }
+    int value = this.head.item;
+    this.head = this.head.next;
+    release(this);
+    return value;
+  }
+}
+
+/*****/
+VERIFY</code></pre>
+<p>Since <span class="keyword">yield</span> annotations are part of a program's specification, they do not affect the run-time behavior of the code. Any call to <code>pop</code> performs heap operations with the following commutivities:</p>
+<div style="text-align: center;">
+<p><span class="mover font-weight-bold">R</span>; [ <span class="mover font-weight-bold">B</span>; <span class="mover font-weight-bold">L</span>; <span class="keyword">yield</span>; <span class="mover font-weight-bold">R</span>; ]* <span class="mover font-weight-bold">B</span>; <span class="mover font-weight-bold">B</span>; <span class="mover font-weight-bold">L</span>;</p>
+</div>
+<p>This sequence consists of reducible subsequences <span class="mover font-weight-bold">R</span>*;<span class="mover font-weight-bold">N</span>?;<span class="mover font-weight-bold">L</span>* separated by <span class="keyword">yield</span>s and is thus P/C equivalent.</p>
+<h2 id="assertions-and-debugging">Assertions and Debugging</h2>
+<p>Let's now add a method to our <code>Stack</code> that uses an <span class="keyword">assert</span> statement. <span class="smallcaps">Anchor</span> will verify that these assertions will never fail at run time. Unfortunately, that's not the case for us here.</p>
+<pre class="anchor"><code>public void buggy() {
+  this.push(10);
+  assert this.head.item == 10;
+}
+
+/*****/
+class Node {
+  int item  moves_as isLocal(this) ? B : (isRead() ? B : E);
+  Node next moves_as isLocal(this) ? B : (isRead() ? B : E);
+
+  Node(int item, Node next) {
+    this.item = item;
+    this.next = next;
+  }
+}
+
+class Stack {
+  Node head moves_as holds(this) ? B : E;
+
+  public void buggy() {
+    this.push(10);
+    assert this.head.item == 10;
+  }
+
+  public void push(int item) {
+    acquire(this);
+    Node node = new Node(item, this.head);
+    this.head = node; 
+    release(this);
+  }
+}
+
+/*****/
+VERIFY_BUGGY</code></pre>
+<p>The first thing that happens when we try to verify if is that we get the error commutivity for the access to <code>this.head</code> before the lock for the <code>this</code> object is not held at the <span class="keyword">assert</span> statement. We can see the reasoning leading to this commutivity by clicking on the mover button <span class="btn btn-success btn-small btn-mover rounded-circle ff">E</span> next to the <span class="keyword">assert</span> statement in the error message. We can fix the error by acquiring the lock beforehand:</p>
+<pre class="anchor"><code>public void buggy() {
+  this.push(10);
+  acquire(this);
+  assert this.head.item == 10;
+  release(this);
+}
+
+/*****/
+class Node {
+  int item  moves_as isLocal(this) ? B : (isRead() ? B : E);
+  Node next moves_as isLocal(this) ? B : (isRead() ? B : E);
+
+  Node(int item, Node next) {
+    this.item = item;
+    this.next = next;
+  }
+}
+
+class Stack {
+  Node head moves_as holds(this) ? B : E;
+
+  public void buggy() {
+    this.push(10);
+    acquire(this);
+    assert this.head.item == 10;
+    release(this);
+  }
+
+  public void push(int item) {
+    acquire(this);
+    Node node = new Node(item, this.head);
+    this.head = node; 
+    release(this);
+  }
+}
+
+/*****/
+VERIFY_BUGGY</code></pre>
+<p>However, examination of the resulting error message indicates that the code is no longer reducible because we acquire the lock after releasing it in the nested call to <code>push</code>. Clicking on the button <span class="btn btn-small ff btn-light btn-fold"><i class="fas fa-ellipsis-h"></i></span> next to the next call will show you the steps inside that call.</p>
+<p>Adding a <span class="keyword">yield</span> at that point fixes the reduction error but results in a potential assertion failure.</p>
+<pre class="anchor"><code>public void buggy() {
+  this.push(10);
+  yield;
+  acquire(this);
+  assert this.head.item == 10;
+  release(this);
+}
+
+/*****/
+class Node {
+  int item  moves_as isLocal(this) ? B : (isRead() ? B : E);
+  Node next moves_as isLocal(this) ? B : (isRead() ? B : E);
+
+  Node(int item, Node next) {
+    this.item = item;
+    this.next = next;
+  }
+}
+
+class Stack {
+  Node head moves_as holds(this) ? B : E;
+
+  public void buggy() {
+    this.push(10);
+    yield;
+    acquire(this);
+    assert this.head.item == 10;
+    release(this);
+  }
+
+  public void push(int item) {
+    acquire(this);
+    Node node = new Node(item, this.head);
+    this.head = node; 
+    release(this);
+  }
+}
+
+/*****/
+VERIFY_BUGGY</code></pre>
+<p>Clicking on the heap button <span class="btn btn-warning btn-small btn-heap ff"><i class="fas fa-sitemap"></i></span> next to the assertion in the error message shows us the counterexample provided by <span class="smallcaps">Anchor</span>'s theorem prover, which shows why the assertion may fail. Note that the value of <code>this.head.item</code> read from the heap is not 10. We can see where <code>this.head.item</code> became a different value by click on the heap button next to the yield step. This version shows both the pre-state and the post-state of the yield, with any changes hilighted in red. From this it is clear that, perhaps as expected, another thread could modify <code>this.head</code> at that point in execution, lead to the subsequent assertion failure.</p>
+<h2 id="method-specifications">Method Specifications</h2>
+<p>The last step of verifying our <code>Stack</code> is to add method specifications describing their intended behavior. For the atomic method <code>push</code>, we can simply state that the method's <code>head</code> after the call contains the newly-inserted value and a reference to the old <code>head</code>. We also must include the standard <span class="keyword">modifies</span> annotation to specify which memory locations might be modified by the method.</p>
+<pre class="anchor"><code>modifies this;
+ensures this.head.item == item;
+ensures this.head.next == old(this.head);
+public void push(int item) { 
+  ...
+}
+
+/*****/
+class Node {
+  int item  moves_as isLocal(this) ? B : (isRead() ? B : E);
+  Node next moves_as isLocal(this) ? B : (isRead() ? B : E);
+
+  Node(int item, Node next) {
+    this.item = item;
+    this.next = next;
+  }
+}
+
+class Stack {
+  Node head moves_as holds(this) ? B : E;
+
+  modifies this;
+  ensures this.head.item == item;
+  ensures this.head.next == old(this.head);
+  public void push(int item) {
+    acquire(this);
+    Node node = new Node(item, this.head);
+    this.head = node; 
+    release(this);
+  }
+
+  modifies this;
+  ensures old(this.head) != null;
+  ensures $result == old(this.head.item); 
+  ensures this.head == old(this.head.next);
+  public int pop() {
+    acquire(this);
+    while (this.head == null)   
+      invariant holds(this);
+    {
+      release(this);
+      yield;
+      acquire(this);
+    }
+    int value = this.head.item;
+    this.head = this.head.next;
+    release(this);
+    return value;
+  }
+}
+
+/*****/
+VERIFY</code></pre>
+<p>The specification for <code>pop</code> is a bit more interesting because <code>pop</code> is not atomic. Moreover, all of the reducible sequences are no-ops, except for the very last one where we atomically remove a node from the stack. That last atomic step is what we summarize in the specification:</p>
+<pre class="anchor"><code>modifies this;
+ensures old(this.head) != null;
+ensures $result == old(this.head.item); 
+ensures this.head == old(this.head.next);
+public int pop() {
+  acquire(this);
+  while (this.head == null)   
+    invariant holds(this);
+  {
+    release(this);
+    yield;
+    acquire(this);
+  }
+  int value = this.head.item;
+  this.head = this.head.next;
+  release(this);
+  return value;
+}
+
+/*****/
+class Node {
+  int item  moves_as isLocal(this) ? B : (isRead() ? B : E);
+  Node next moves_as isLocal(this) ? B : (isRead() ? B : E);
+
+  Node(int item, Node next) {
+    this.item = item;
+    this.next = next;
+  }
+}
+
+class Stack {
+  Node head moves_as holds(this) ? B : E;
+
+  modifies this;
+  ensures this.head.item == item;
+  ensures this.head.next == old(this.head);
+  public void push(int item) {
+    acquire(this);
+    Node node = new Node(item, this.head);
+    this.head = node; 
+    release(this);
+  }
+
+  modifies this;
+  ensures old(this.head) != null;
+  ensures $result == old(this.head.item); 
+  ensures this.head == old(this.head.next);
+  public int pop() {
+    acquire(this);
+    while (this.head == null)   
+      invariant holds(this);
+    {
+      release(this);
+      yield;
+      acquire(this);
+    }
+    int value = this.head.item;
+    this.head = this.head.next;
+    release(this);
+    return value;
+  }
+}
+
+/*****/
+VERIFY</code></pre>
+<p>Here, the special variable <code>$result</code> refers to the method's return value, and terms of the form <code>old(e)</code>, such as <code>old(this.head.item)</code>, refer to the value of <span class="math inline"><em>e</em></span> at the beginning of the yield-free region captured by the specification. Note that <code>old(this.head.item)</code> may have a different value than it had at the start of the method call if interference occurs at a documented yield point.</p>
+<h2 id="non-blocking-concurrency">Non-blocking Concurrency</h2>
+<p>We can also write an alternative <code>LockFreeStack</code> that uses optimistic concurrency control instead of a lock:</p>
+<pre class="anchor"><code>class Stack {
+
+  volatile Node head moves_as N;
+
+  modifies this;
+  ensures this.head.next == old(this.head);
+  ensures this.head.item == item;
+  public void push(int item) {
+    while (true) {
+      Node next = this.head;
+      Node nu = new Node(item, next);
+      yield;
+      if (cas(this, head, next, nu)) {
+        break;
+      }
+    }
+  }
+
+  // ...
+}
+
+/*****/
+$/examples/LockFreeStack.anchor
+
+/*****/
+VERIFY</code></pre>
+<p>In this version, any thread can read or write the field <code>head</code> at any time. All accesses to it are thus non-movers <span class="mover font-weight-bold">N</span> because of the potential for conflicting concurrent writes, so <span class="smallcaps">Anchor</span> requires <code>head</code> be declared <code>volatile</code> to ensure sequential consistency.</p>
+<p>The method <code>push()</code> reads <code>this.head</code> into <code>n</code>, allocates a new node <code>nu</code>, and then tries to atomically change <code>this.head</code> from <code>n</code> to <code>nu</code> with an atomic compare-and-swap (<span class="keyword">cas</span>) operation. If the <span class="keyword">cas</span> operation fails, the code retries until it succeeds. The last iteration of the loop thus looks like this:</p>
+<div class="d-flex justify-content-center">
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><code class="anchor">N</code></td>
+<td align="left"><code>n = this.head;</code></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="mover font-weight-bold"><span class="invisible">E</span></span></td>
+<td align="left"><code>yield;</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code class="anchor">B</code></td>
+<td align="left"><code>nu = ...;</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code class="anchor">N</code></td>
+<td align="left"><code>successful-cas;</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>where succeeding <span class="keyword">cas</span> operation is a non-mover (<span class="mover font-weight-bold">N</span>) since it writes to head. All earlier loop iterations look like this:</p>
+<div class="d-flex justify-content-center">
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><code class="anchor">N</code></td>
+<td align="left"><code>n = this.head;</code></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="mover font-weight-bold"><span class="invisible">E</span></span></td>
+<td align="left"><code>yield;</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code class="anchor">B</code></td>
+<td align="left"><code>nu = ...;</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code class="anchor">B</code></td>
+<td align="left"><code>failed-cas;</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Our analysis permits <span class="keyword">cas</span> to fail non-deterministically so we treat failing <span class="keyword">cas</span> operations as both-movers (<span class="mover font-weight-bold">B</span>). The <span class="mover font-weight-bold">B</span>/<span class="mover font-weight-bold">N</span> annotation in the figure captures the <span class="keyword">cas</span> operation's failing/succeeding commutativities.</p>
+<p>The sequence</p>
+<div style="text-align: center;">
+<p>[ <span class="mover font-weight-bold">N</span>; <code>yield</code>; <span class="mover font-weight-bold">B</span>; <span class="mover font-weight-bold">B</span> ]*; <span class="mover font-weight-bold">N</span>; <code>yield</code>; <span class="mover font-weight-bold">B</span>; <span class="mover font-weight-bold">N</span></p>
+</div>
+<p>consists of reducible sequences separated by yields and is thus P/C equivalent. As in the previous example, the reducible sequences are all no-ops, except for the last, which has the heap effect of atomically adding the new node to the stack, as required by <code>push()</code>'s specification. The <code>pop()</code> method is similar.</p>
+<p><code>LockFreeStack</code>'s methods satisfy the <em>exact same</em> specifications as <code>Sack</code>'s, despite using optimistic concurrency control instead of locks!</p>
+<p><strong>Exercise.</strong> Write a non-blocking <code>pop()</code> method for <code>LockFreeStack</code>.</p>
+<h2 id="ghost-fields">Ghost Fields</h2>
+<p><span class="smallcaps">Anchor</span> provides basic support for data abstraction via ghost fields. Ghost fields are present only at verification time and not at run time, They enable us to express specifications using data abstraction. For example, the following <code>Queue</code> class represents a fixed-size queue as a circular buffer where values are inserted at <code>tail</code> and removed from <code>head</code>.</p>
+<pre class="anchor"><code>class Queue {
+
+  // Concrete State
+
+  array T = int[moves_as holds(this) ? B : E];
+
+  [T] elems moves_as isLocal(this) ? B : readonly;
+
+  volatile int tail moves_as holds(this) ? B : E;
+  volatile int head moves_as holds(this) ? B : E;
+
+  // Abstract State
+
+  ghost Seq&lt;int&gt; spec;
+
+  invariant this.spec.length 
+         == (512 + this.tail - this.head) % 512;
+
+  invariant (forall int i :: 
+    (this.head &lt;= i &lt; this.tail) || 
+    (this.head &gt; this.tail &amp;&amp; 
+     (this.head &lt;= i &lt; 512 || 0 &lt;= i &lt; this.tail))
+    ==&gt; this.elems[i] 
+        == this.spec[(512 + i - this.head)%512]);
+
+  ...
+}
+
+/*****/
+
+axiom (forall int x, int y :: 
+        0 &lt;= x &amp;&amp; x &lt; y ==&gt; x % y == x);
+axiom (forall int x, int y :: 
+        y &lt;= x &amp;&amp; x &lt; (y+y) ==&gt; x % y == x - y);
+axiom (forall int x :: 
+        0 &lt; x ==&gt; x % x == 0);
+
+class Queue {
+
+  // Concrete State
+
+  array T = int[moves_as holds(this) ? B : E];
+
+  [T] elems moves_as isLocal(this) ? B : readonly;
+
+  volatile int tail moves_as holds(this) ? B : E;
+  volatile int head moves_as holds(this) ? B : E;
+
+  invariant this.elems != null &amp;&amp; this.elems.length == 512;
+  invariant 0 &lt;= this.tail &lt; 512;
+  invariant 0 &lt;= this.head &lt; 512;
+
+  // Abstract State
+
+  ghost Seq&lt;int&gt; spec;
+
+  invariant this.spec.length == (512 + this.tail - this.head) % 512;
+
+  invariant (forall int i :: 
+      (this.head &lt;= i &lt; this.tail) || 
+      (this.head &gt; this.tail) &amp;&amp; (this.head &lt;= i &lt; 512 || 0 &lt;= i &lt; this.tail)
+      ==&gt; this.elems[i] == this.spec[(512 + i - this.head)%512]);
+
+  ensures this.spec == [ ];
+  public Queue() {
+    // spec, head, tail all zero/empty initialized
+    this.elems = new [T](512);
+  }
+
+  modifies this;
+  ensures this.spec == old(this.spec) ++ [x];
+  public void enqueue(int x) {
+    acquire(this);
+    while ((this.tail + 1) % 512 == this.head) 
+      invariant holds(this); {
+      release(this);
+      yield;
+      acquire(this);
+    }
+    this.elems[this.tail] = x;
+    this.tail = (this.tail + 1) % 512;
+    this.spec = this.spec ++ [x];
+    release(this);
+  }
+
+  modifies this;
+  ensures old(this.spec) == [$result] ++ this.spec;
+  public int dequeue() {
+    acquire(this);
+    while (this.tail == this.head) 
+      invariant holds(this); {
+      release(this);
+      yield;
+      acquire(this);
+    }
+    int result = this.elems[this.head];
+    this.head = (this.head + 1) % 512;
+    this.spec = this.spec[1..SeqLen(this.spec)];
+    return result;
+  }
+}
+
+/*****/
+VERIFY</code></pre>
+<p>The <span class="keyword">ghost</span> field <code>spec</code> represents the queue as a sequence with values added at the end and removed from the first, and we provide suitable invariants to ensure that the <code>spec</code> sequence matches the queue encoded by the concrete state. Method specifications are then written in terms of only the <span class="keyword">ghost</span> field. We update <span class="keyword">ghost</span> fields just as normal fields, but <span class="smallcaps">Anchor</span> assumes that all updates to such fields happen while executing the &quot;commit&quot; step of an atomic block. (Internally, that means we can treat all access to <span class="keyword">ghost</span> fields as both movers...)</p>
+<p>This example also shows how to introduce new axioms. The modular arithmetic operator <code>%</code> is left as an uninterpreted function by default, so here we provide axioms capturing the modular arithmetic properties necessary to verify the code:</p>
+<pre class="anchor"><code>axiom (forall int x, int y :: 
+        0 &lt;= x &amp;&amp; x &lt; y ==&gt; x % y == x);
+axiom (forall int x, int y :: 
+        y &lt;= x &amp;&amp; x &lt; (y+y) ==&gt; x % y == x - y);
+axiom (forall int x :: 
+        0 &lt; x ==&gt; x % x == 0);
+</code></pre>
+<p><span class="smallcaps">Anchor</span> provides three built-in value types to add in abstraction: sequences, maps, and sets. These types can be used in specifications but not in actual code. These are defined directly via the Z3 solver's underlying theories.</p>
+<ul>
+<li><p><code>Seq&lt;T&gt;</code> is an immutable sequence of <code>T</code> elements, where <code>[ ]</code> is the empty sequence and <code>[x]</code> is a single-element sequence. Sequences support concatenation (<code>s1 ++ s2</code>), length (<code>s.length</code>), access (<code>s[i]</code>, and subsequence <code>s[start..end]</code> operations. There are also builtin functions for these operators and other operations. In most cases, <span class="smallcaps">Anchor</span> will infer the appropriate type argument <code>T</code> For these function calls, and it can be omitted, as in <code>SeqEmpty()</code>.</p></li>
+<li><code>SeqEmpty&lt;T&gt;() : Seq&lt;T&gt;</code></li>
+<li><code>SeqLen&lt;T&gt;(Seq&lt;T&gt;): int</code></li>
+<li><code>SeqConcat&lt;T&gt;(Seq&lt;T&gt;, Seq&lt;T&gt;) : Seq&lt;T&gt;</code></li>
+<li><code>SeqNth&lt;T&gt;(Seq&lt;T&gt;, int) : T</code></li>
+<li><code>SeqUnit&lt;T&gt;(T) : Seq&lt;T&gt;</code></li>
+<li><code>SeqSub&lt;T&gt;(Seq&lt;T&gt;, int, int) : Seq&lt;T&gt;</code></li>
+<li><p><code>SeqEqual&lt;T&gt;(Seq&lt;T&gt;,Seq&lt;T&gt;): boolean</code></p></li>
+<li><p><code>Map&lt;K,V&gt;</code> is an immutable map from type <code>K</code> to <code>V</code>. This type supports three functions:</p></li>
+<li><code>MapEmpty&lt;K,V&gt;(): Map&lt;K,V&gt;</code></li>
+<li><code>MapStore&lt;K,V&gt;(m, k, v): Map&lt;K,V&gt;</code></li>
+<li><p><code>MapSelect&lt;K,V&gt;(m, k): V</code></p></li>
+<li><p><code>Set&lt;T&gt;</code> is an immutable set from type <code>T</code>. Sets support the following:</p></li>
+<li><code>SetEmpty&lt;T&gt;() : Set&lt;T&gt;</code></li>
+<li><code>SetSingleton&lt;T&gt;(T) : Set&lt;T&gt;</code></li>
+<li><code>SetUnion&lt;T&gt;(Set&lt;T&gt;, Set&lt;T&gt;) : Set&lt;T&gt;</code></li>
+<li><code>SetAdd&lt;T&gt;(Set&lt;T&gt;, T) : Set&lt;T&gt;</code></li>
+<li><code>SetRemove&lt;T&gt;(Set&lt;T&gt;, T) : Set&lt;T&gt;</code></li>
+<li><code>SetContains&lt;T&gt;(Set&lt;T&gt;, T) : boolean</code></li>
+<li><code>SetIsEqual&lt;T&gt;(Set&lt;T&gt;, Set&lt;T&gt;) : boolean</code></li>
+<li><p><code>SetIsSubset&lt;T&gt;(Set&lt;T&gt;, Set&lt;T&gt;) : boolean</code></p></li>
+</ul>
+<p>Here is an example using some of these operators and functions:</p>
+<pre class="anchor"><code>class SeqExample {
+  ...
+}
+
+/*****/
+class SeqExample {
+
+  ghost Seq&lt;int&gt; seq;
+
+  public void functions() {
+      this.seq = SeqEmpty&lt;int&gt;();
+      this.seq = SeqUnit(4);
+      this.seq = SeqConcat(this.seq, this.seq);
+      assert SeqNth(this.seq, 0) == 4;
+      assert SeqLen(this.seq) == 2;
+  }
+
+  public void operators() {
+      this.seq = [ 4 ];
+      this.seq = this.seq ++ this.seq;
+      assert this.seq[0] == 4;
+      assert this.seq.length == 2;
+  }
+}
+
+/*****/
+VERIFY</code></pre>
+<h2 id="additional-details-and-features">Additional Details and Features</h2>
+<h3 id="abbreviations">Abbreviations</h3>
+<p><span class="smallcaps">Anchor</span> supports abbreviations for common synchronization idioms encountered in practice. We introduce those abbreviations here before showing one more sophisticated example.</p>
+<div class="d-flex justify-content-center">
+<table>
+<tbody>
+<tr class="odd">
+<td align="right"><code class="anchor">thread_local</code></td>
+<td align="left"></td>
+<td align="left"><code class="anchor">isLocal(this) ? B : E</code></td>
+</tr>
+<tr class="even">
+<td align="right"><code class="anchor">guarded_by(l)</code></td>
+<td align="left"></td>
+<td align="left"><code class="anchor">holds(l) ? B : E</code></td>
+</tr>
+<tr class="odd">
+<td align="right"><code class="anchor">write_guarded_by(l)</code></td>
+<td align="left"></td>
+<td align="left"><code class="anchor">isRead()</code></td>
+</tr>
+<tr class="even">
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"><code class="anchor">? (holds(l) ? B : N)</code></td>
+</tr>
+<tr class="odd">
+<td align="right"></td>
+<td align="left"></td>
+<td align="left"><code class="anchor">: (holds(l) ? N : E)</code></td>
+</tr>
+<tr class="even">
+<td align="right"><code class="anchor">readonly</code></td>
+<td align="left"></td>
+<td align="left"><code class="anchor">isRead() ? B : E</code></td>
+</tr>
+<tr class="odd">
+<td align="right"><code class="anchor">immutable</code></td>
+<td align="left"></td>
+<td align="left"><code class="anchor">isRead() ? R : E</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>For thread-local fields, the allocating thread initially has exclusive access (<span class="mover font-weight-bold">B</span>). If the object ever becomes shared between threads, subsequent accesses are errors (<span class="mover font-weight-bold">E</span>).</p>
+<p>The <span class="const">guarded_by</span> abbreviation captures lock-based exclusive access, as for <code>Stack</code>'s <code>head</code> field. The <span class="const">write_guarded_by</span> abbreviation captures a more subtle discipline where a lock must be held for writes but not necessarily for reads. Reads while holding the lock are both-movers (<span class="mover font-weight-bold">B</span>) since there cannot be concurrent writes; reads without holding the lock are non-movers (<span class="mover font-weight-bold">N</span>) since there may be concurrent writes; and lock-protected writes are non-movers (<span class="mover font-weight-bold">N</span>) since there may be concurrent reads.</p>
+<p>The <span class="const">readonly</span> abbreviation is used when a field's value is fixed from the moment the field becomes accessible to multiple threads. Reads of <span class="const">readonly</span> fields are both-movers.</p>
+<p>For immutable fields, writes are forbidden (<span class="mover font-weight-bold">E</span>), but reads are okay and are right-movers due to the absence of subsequent writes. Reads of immutable fields are not left-movers, however, as the field could have changed before becoming immutable.</p>
+<h3 id="which-objects-are-thread-local">Which Objects are Thread Local?</h3>
+<p><span class="smallcaps">Anchor</span> uses a simple strategy to identify thread-local objects. A newly-allocated object is thread-local until a reference to it is stored in another object, at which point it is considered shared. Thus, shared objects never refer to thread-local data. The same applies to arrays. Also, <span class="smallcaps">Anchor</span> assumes that the receiver and all objects passed as parameters to <span class="keyword">public</span> methods are shared, and that the receiver of a call to a <span class="keyword">public</span> constructor is considered local.</p>
+<h3 id="modeling-heap-changes-at-yield-points">Modeling Heap Changes at Yield Points</h3>
+<p>The following shows an atomic integer class <code>AtomicInt</code> . The synchronization specification indicates that the field <code>this.n</code> can be read and written when holding the self lock and that writes must always increment <code>n</code>, as expressed via the condition <code>newValue == this.n + 1</code>.</p>
+<pre class="anchor"><code>class AtomicInc {
+
+  int n 
+    moves_as holds(this) 
+             ? isRead() ? B 
+                        : (newValue == this.n + 1 ? B : E)
+             : E;
+  modifies this;
+  ensures this.n == old(this.n) + 1;
+  ensures $result == this.n;
+  int inc() {
+    synchronized(this) {
+      this.n = this.n + 1;
+      return this.n;
+    }
+  }
+}
+
+/*****/
+/*****/
+VERIFY</code></pre>
+<p>Here is a client of our class that increments the counter twice and asserts that the value after the second increment is larger than the value after the first. However, this code will not pass the verifier. If you try to verify the code, <span class="smallcaps">Anchor</span> will be unable to ensure that <code>counter.n</code> is not decreased during the <span class="keyword">yield</span>.</p>
+<pre class="anchor"><code>class AtomicIntClient {
+  public void incTwice(AtomicInc counter) {
+    int n = counter.inc();
+    yield;
+    assert counter.inc() &gt;= n;
+  }
+}
+
+/*****/
+class AtomicInc {
+
+  int n 
+    moves_as holds(this) 
+             ? isRead() ? B 
+                        : (newValue == this.n + 1 ? B : E)
+             : E;
+
+  modifies this;
+  ensures this.n == old(this.n) + 1;
+  ensures $result == this.n;
+  int inc() {
+    synchronized(this) {
+      this.n = this.n + 1;
+      return this.n;
+    }
+  }
+}
+
+class AtomicIntClient {
+  public void incTwice(AtomicInc counter) {
+    int n = counter.inc();
+    yield;
+    assert counter.inc() &gt;= n;
+  }
+}
+
+/*****/
+VERIFY_BUGGY</code></pre>
+<p>The root cause of <span class="smallcaps">Anchor</span>'s inability to verify this code lies in how it models state change at <span class="keyword">yield</span>s. Generally speaking, a <span class="keyword">yield</span> statement is modelled as zero or more heap updates to each memory location by other threads. Those updates are constrained by each memory location's read access permission: the value of any memory location for which the current thread has right-mover read access is preserved.</p>
+<p>This rule works for the vast majority of cases, but it may admit changes to a field like <code>counter.n</code> that are not actually feasible if updates to <code>counter.n</code> are restricted in some particular way, as is the case here with the restriction that all updates must increment the old value.</p>
+<p>This motivates our introduction of optional <span class="keyword">yields_as</span> annotations to better approximate heap updates. These annotations relate a field's post-yield value to its pre-yield value. For our <code>AtomicInt</code> class, we include a <span class="keyword">yields_as</span> annotation guaranteeing the value of <code>n</code> may only increase at a <span class="keyword">yield</span>. With that change, the client passes the verifier.</p>
+<pre class="anchor"><code>int n 
+  moves_as holds(this) 
+            ? isRead() ? B 
+                      : (newValue == this.n + 1 ? B : E)
+            : E
+  yields_as newValue &gt;= this.n;
+
+/*****/
+class AtomicInc {
+
+  int n 
+    moves_as holds(this) 
+              ? isRead() ? B 
+                        : (newValue == this.n + 1 ? B : E)
+              : E
+    yields_as newValue &gt;= this.n;
+
+  modifies this;
+  ensures this.n == old(this.n) + 1;
+  ensures $result == this.n;
+  int inc() {
+    synchronized(this) {
+      this.n = this.n + 1;
+      return this.n;
+    }
+  }
+}
+
+class AtomicIntClient {
+  public void incTwice(AtomicInc counter) {
+    int n = counter.inc();
+    yield;
+    assert counter.inc() &gt;= n;
+  }
+}
+
+/*****/
+VERIFY</code></pre>
+<p><span class="smallcaps">Anchor</span> verifies that <span class="keyword">yields_as</span> annotations subsume all writes permissible by the synchronization specification and that they set up possible updates permitted by them is reflexively and transitively closed.</p>
+<h3 id="aba-freedom">ABA Freedom</h3>
+<p>Here is a second version of the <code>AtomicInt</code> class that uses <span class="keyword">cas</span> and optimistic concurrency control. The synchronization specification for the now-volatile field <code>n</code> indicates that the field can be read and written at any time (<span class="mover font-weight-bold">N</span>) and that writes must always increment <code>n</code>.</p>
+<pre class="anchor"><code>class AtomicInc {
+
+  volatile int n  
+    moves_as isRead() ? N
+                      : (newValue == this.n + 1 ? N : E)
+    yields_as newValue &gt;= this.n;
+
+  modifies this;
+  ensures this.n == old(this.n) + 1;
+  public void inc() {
+    while (true) {
+      int x = this.n;
+      if (cas(this,n,x,x+1)) {
+        break;
+      }
+      yield;
+    }
+  }
+}
+
+/*****/
+/*****/
+VERIFY_BUGGY</code></pre>
+<p>We cannot verify this code, because the read of <code>this.n</code> and the subsequent read/write in the <code>cas</code> operation are both non-movers.</p>
+<p>We could eliminate this error by inserting a <span class="keyword">yield</span> between them, but <span class="smallcaps">Anchor</span> provides a better way based on the fact that <code>this.n</code> is free of ABA problems. This means that if a thread reads a value <em>A</em> from <code>this.n</code>, and then later reads the same value <em>A</em> again, then no other thread could have changed <code>this.n</code> from <em>A</em> to a different value <em>B</em>, and then back to <em>A</em> again in between those two reads. This property helps prove absence of interference between threads. We can declare the <code>n</code> field to be <span class="keyword">noABA</span>, and <span class="smallcaps">Anchor</span> verifies that it exhibits ABA freedom.</p>
+<pre class="anchor"><code>noABA volatile int n  
+  moves_as isRead() ? N
+                    : (newValue == this.n + 1 ? N : E)
+  yields_as newValue &gt;= this.n;
+
+/*****/
+class AtomicInc {
+
+  noABA volatile int n  
+    moves_as isRead() ? N
+                      : (newValue == this.n + 1 ? N : E)
+    yields_as newValue &gt;= this.n;
+
+  modifies this;
+  ensures this.n == old(this.n) + 1;
+  public void inc() {
+    while (true) {
+      int x = this.n;
+      if (cas(this,n,x,x+1)) {
+        break;
+      }
+      yield;
+    }
+  }
+}
+
+/*****/
+VERIFY</code></pre>
+<p>Moreover, it is sufficient to guarantee that there is no <span class="keyword">yield</span> necessary between the read and <span class="keyword">cas</span> operations:</p>
+<ul>
+<li>The last loop iteration in <code>inc()</code> consists of a read of <code>n</code> into <code>x</code>, followed by a successful <span class="keyword">cas</span> changing <code>this.n</code> from <code>x</code> to <code>x+1</code>. Since <code>n</code> is ABA free, no other thread could have written to <code>n</code> between the read and the successful <span class="keyword">cas</span>. As such, <span class="smallcaps">Anchor</span> considers the read operation to be a right-mover, provided it is followed by a successful <span class="keyword">cas</span>.</li>
+</ul>
+<div class="d-flex justify-content-center">
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><code class="anchor">R</code></td>
+<td align="left"><code>x = this.n;</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code class="anchor">N</code></td>
+<td align="left"><code>successful-cas;</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>On all earlier iterations, the read of <code>this.n</code> is followed by a failed <span class="keyword">cas</span>, which is a both-mover. Thus, any call to <code>inc()</code> performs the following sequence of heap operations:</li>
+</ul>
+<div class="d-flex justify-content-center">
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><code class="anchor">N</code></td>
+<td align="left"><code>x = this.n;</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code class="anchor">B</code></td>
+<td align="left"><code>failed-cas;</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The sequence [ <span class="mover font-weight-bold">N</span>; <span class="mover font-weight-bold">B</span>; <span class="keyword">yield</span> ]* <span class="mover font-weight-bold">R</span>; <span class="mover font-weight-bold">N</span> consists of reducible sequences separated by yields and is P/C equivalent equivalent. Moreover, the reducible sequences are all no-ops, except for the last, which has the heap effect of atomically incrementing <code>this.n</code>, as required by <code>inc()</code>'s specification.</p>
+<p>This more precise <span class="keyword">cas</span>-based reasoning can be very useful for verifying the correctness of many non-blocking algorithms. It involves verifying that <span class="keyword">noABA</span> fields are free from ABA problems and treating reads from them differently, depending on whether or not each read is followed by a successful <span class="keyword">cas</span> operation.</p>
+<h3 id="object-invariants">Object Invariants</h3>
+<p><span class="smallcaps">Anchor</span> supports object invariants. For example, to express that <code>Node</code>s in a linked list must be ordered by their <code>item</code>s, we can add the following invariant to our <code>Node</code> class from our stack example:</p>
+<pre class="anchor"><code>invariant this.next != null  
+          ==&gt; this.item &lt;= this.next.item;  
+
+/*****/
+class Node {
+  int item  moves_as isLocal(this) ? B 
+                                   : (isRead() ? B : E);
+  Node next moves_as isLocal(this) ? B 
+                                   : (isRead() ? B : E);
+
+  invariant this.next != null  ==&gt;  this.item &lt;= this.next.item;
+
+  requires item &lt;= next.item;
+  public Node(int item, Node next) {
+    this.item = item;
+    this.next = next;
+  }
+}
+
+/*****/
+VERIFY</code></pre>
+<p><span class="smallcaps">Anchor</span> assumes all object invariants hold at the start of each P/C equivalent method and immediately after each <span class="keyword">yield</span> operation, and it verifies that the invariants hold at the end of each P/C equivalent method and immediately before each <span class="keyword">yield</span> operation.</p>
+<h3 id="loop-termination">Loop Termination</h3>
+<p><span class="smallcaps">Anchor</span> requires that that any reducible sequence reaching its &quot;commit&quot; point must terminate. As such, <span class="smallcaps">Anchor</span> verifies that any thread entering the &quot;left-matching&quot; (or &quot;post-commit&quot;) phase of a reducible block reaches a <span class="keyword">yield</span> point, and it rejects any program that, when in the left-matching phase, blocks indefinitely (e.g., due to an <code>acquire</code>) or loops indefinitely.</p>
+<p>For example, the following loop cannot appear between a non-mover operation and the next <span class="keyword">yield</span>, since <span class="smallcaps">Anchor</span> does not verify loop termination without some additional help from the programmer.</p>
+<pre class="anchor"><code>for (int i = 0; i &lt; 10; i = i + 1) {
+  // ...
+}
+
+/*****/
+class DecreasingLoop {
+  
+  volatile int value moves_as N;
+
+  public void looping() {
+    this.value = 0;   // non-mover!
+    for (int i = 0; i &lt; 10; i = i + 1) {
+      // ...
+    }
+  }
+}
+
+/*****/
+VERIFY_BUGGY</code></pre>
+<p>In cases where a loop like this does indeed terminate, the programmer may supply a termination metric with a <span class="keyword">decreases</span> annotation to provide a non-negative integer expression that decreases in value on each loop iteration.</p>
+<pre class="anchor"><code>for (int i = 0; i &lt; 10; i = i + 1) 
+  decreases 10 - i;
+{
+  // ...
+}
+
+/*****/
+class DecreasingLoop {
+  
+  volatile int value moves_as N;
+
+  public void looping() {
+    this.value = 0;   // non-mover!
+    for (int i = 0; i &lt; 10; i = i + 1) 
+      decreases 10 - i;
+    {
+      // ...
+    }
+  }
+}
+
+/*****/
+VERIFY</code></pre>
+<p>This is quite similar to how <a href="https://rise4fun.com/Dafny/tutorial">Dafny</a> treats loops.</p>
+<h3 id="non-atomic-method-specifications">Non-Atomic Method Specifications</h3>
+<p>A public method containing no <span class="keyword">yield</span>s always has atomic behavior. That behavior can be specified with standard <span class="keyword">requires</span>, <span class="keyword">modifies</span>, and <span class="keyword">ensures</span> annotations, as illustrated by our <code>Stack</code>'s <code>push()</code> method:</p>
+<pre class="anchor"><code>modifies this;
+ensures this.head.next == old(this.head);
+ensures this.head.item == item;
+public void push(int item) {
+  acquire(this);
+  Node node = new Node(item, this.head);
+  this.head = node; 
+  release(this);
+}
+
+/*****/
+$/examples/Stack.anchor
+
+/*****/
+VERIFY</code></pre>
+<p>A <span class="keyword">public</span> method containing <span class="keyword">yield</span>s may also exhibit atomic behavior if it never executes more than one <span class="keyword">yield</span>-free code region with visible side effects. The <code>pop()</code> method has this property. In this case, the specification captures the behavior of the one region with side effects:</p>
+<pre class="anchor"><code>modifies this;
+ensures old(this.head) != null;
+ensures $result == old(this.head.item); 
+ensures this.head == old(this.head.next);
+public int pop() {
+  acquire(this);
+  while (this.head == null) 
+    invariant holds(this);
+  {
+    release(this);
+    yield;
+    acquire(this);
+  }
+  int value = this.head.item;
+  this.head = this.head.next;
+  release(this);
+  return value;
+}
+
+/*****/
+$/examples/Stack.anchor
+
+/*****/
+VERIFY</code></pre>
+<p>The behavior of <span class="keyword">public</span> methods with non-atomic behavior can be specified via a sequence of blocks containing <span class="keyword">modifies</span> and <span class="keyword">ensures</span> clauses. For example, the <code>incTwice</code> method in our <code>AtomicIntClient</code> class can be specificed as follows</p>
+<pre class="anchor"><code>{
+  modifies counter;
+  ensures counter.n == old(counter.n) + 1;
+}
+yield;
+{
+  modifies counter;
+  ensures counter.n == old(counter.n) + 1;
+}
+public void incTwice(AtomicInc counter) {
+  int n = counter.inc();
+  yield;
+  assert counter.inc() &gt;= n;
+}
+
+/*****/
+  class AtomicInc {
+
+  int n  moves_as holds(this) 
+                  ? isRead() ? B 
+                             : newValue == this.n + 1 ? B : E
+                  : E
+         yields_as newValue &gt;= this.n;
+         
+  modifies this;
+  ensures this.n == old(this.n) + 1;
+  ensures $result == this.n;
+  int inc() {
+    synchronized(this) {
+      this.n = this.n + 1;
+      return this.n;
+    }
+  }
+}
+
+class AtomicIntClient {
+  
+  {
+    modifies counter;
+    ensures counter.n == old(counter.n) + 1;
+  }
+  yield;
+  {
+    modifies counter;
+    ensures counter.n == old(counter.n) + 1;
+  }
+  public void incTwice(AtomicInc counter) {
+    int n = counter.inc();
+    yield;
+    assert counter.inc() &gt;= n;
+  }
+}
+
+/*****/
+VERIFY</code></pre>
+<p>We include the <span class="keyword">yield</span> keyword in the specification to reinforce that interference may occur at those intermediate points, and that the heap state at those points may be exposed to other threads.</p>
+<p>The <code>add</code> method for a sorted linked list implemented with hand-over-hand locking is similarly non-atomic and be specified as a sequence of three atomic blocks that refer to an additional specification variable <code>ptr</code>. The first initializes <code>ptr</code> to the head of the list; the second (which may be iterated any number of times) moves <code>ptr</code> one node further down the list, performing the appropriate synchronization, until the insertion point is found; and the third inserts a new node at that location.</p>
+<pre class="anchor"><code>{
+  Node pred;
+  {
+    // start at head
+    ensures pred == this.head &amp;&amp; holds(pred);
+  }
+  yield;
+  {
+    // step down list, releasing old pred, and
+    // acquiring new pred
+    ensures old(holds(pred));
+    ensures old(pred.next.item) &lt; item;
+    ensures pred == old(pred.next);
+    ensures !holds(old(pred)) &amp;&amp; holds(pred);
+  }*
+    yield;
+  {
+    // return false if already there.
+    // return true and create new node at pred.next if not.
+    modifies pred;
+    ensures old(holds(pred)) &amp;&amp; !holds(pred);
+    ensures old(pred.next.item) &gt;= item;
+    ensures old(pred.next.item) == item ==&gt; !$result;
+    ensures old(pred.next.item) &gt; item  
+              ==&gt; $result
+                &amp;&amp; pred.next.item == item 
+                &amp;&amp; pred.next.next == old(pred.next);
+  }
+}
+public boolean add(int item) { 
+  ...
+}
+
+/*****/
+$/examples/HandOverHandLocking.anchor
+
+/*****/
+VERIFY</code></pre>
+<p><span class="smallcaps">Anchor</span> verifies that method bodies conform to their specifications a simulation check that matches the execution of a yield-free region to a corresponding step taken in the specification.</p>
+<p>Using this feature comes with some caveats. Most importantly, <span class="smallcaps">Anchor</span> doesn't presently properly handle this type of specification for methods that may exit before reaching the end of the sequence. <span class="smallcaps">Anchor</span> encodes a multi-block specification as an NFA and simulates steps in the automata for each <span class="keyword">yield</span>-free region. Debugging problems when the simulation fails can be a bit tricky. We expose the the currents state of the NFA in the heap diagrams with special variables <code>$spec$0</code>, <code>$spec$1</code>, etc. that capture the initial state, the state after the first specification block is matched, and so on. You can use those variables to see where the simulation fails.</p>
+<h2 id="limitations">Limitations</h2>
+<p>While we have tried to stick as close to Java as we could, there are some missing features and other limitations. None of these are insurmountable, but there was only so much we could do in our first <span class="smallcaps">Anchor</span> prototype...</p>
+<p>Some of the missing Java features in subtyping, inheritance, and generics. We also only have <code>int</code> and <code>boolean</code> primitives types, arrays may only have one-dimension to make type checking and verification simpler, there is no analog of packages or imports, and some control structures (like <code>switch</code> statements) are missing. <span class="smallcaps">Anchor</span> also does not support the pre/post <code>++</code> and <code>--</code> operators. Since we currently inline method calls in <span class="keyword">public</span> methods, <span class="smallcaps">Anchor</span> doesn't support recursion.</p>
+<p>Your best bet for understanding what is presently supported is to look through our many examples, which illustrate pretty much everything <span class="smallcaps">Anchor</span> can do.</p>
+<p>You you encounter unusual behavior, missing features, misleading errors, etc. please let us know!</p>
+<hr><br><br><br><br>
+      </div>
+
+      </div>
+      <div class="col-6 mt-4 mh-100 mb-1">
+        <pre id="editor" class="form-control bg-light mb-0 h-40" style="min-width: 100%"></pre>
+      <div class="h-60 mb-5 mt-1 border" style="overflow-y: auto; overflow-x:hidden;">
+        <div class="row align-items-center mb-2 flex-nowrap" style="height: 4rem;">
+          <div class="col-2 d-flex mx-2" id="verify-button"></div>
+          <div class="col text-truncate">
+            <span class="h3" id="status"></span>
+          </div>
+        </div>
+        <div class="row flex-nowrap">
+            <div class="col pl-1 pr-3">
+              <ul id="errors">
+              </ul>
+              <div style="height:100px;">
+              </div>
+              <div class="fixed-bottom">
+                <button type="button" class="float-right m-3 btn btn-sm btn-secondary" onclick="reportError()">
+                  Report A Problem
+                </button>
+              </div>
+          </div>
+        </div>
+      </div>
+      </div>
+  </main>
+
+</body>
+
+<script src="ace/build/src/ace.js"></script>
+<script src="ace/build/src/ext-static_highlight.js"></script>
+<script src="js/anchor.js"></script>
+<script src="js/tutorial.js"></script>
+
+</html>

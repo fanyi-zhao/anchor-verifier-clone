@@ -1,0 +1,47 @@
+class Node {
+  int item  moves_as isLocal(this) ? B : (isRead() ? B : E);
+  Node next moves_as isLocal(this) ? B : (isRead() ? B : E);
+
+  Node(int item, Node next) {
+    this.item = item;
+    this.next = next;
+  }
+}
+
+class Stack {
+
+  volatile Node head moves_as N;
+
+  modifies this;
+  ensures this.head.next == old(this.head);
+  ensures this.head.item == item;
+  public void push(int item) {
+    while (true) {
+      Node next = this.head;
+      Node nu = new Node(item, next);
+      yield;
+      if (cas(this, head, next, nu)) {
+        break;
+      }
+    }
+  }
+
+  modifies this;
+  ensures old(this.head) != null;
+  ensures $result == old(this.head.item); 
+  ensures this.head == old(this.head.next);
+  public int pop() {
+    while (true) {
+      Node top = this.head;
+      yield;
+      if (top != null) {
+        Node next = top.next;
+        yield;
+        if (cas(this, head, top, next)) {
+          return top.item;
+        }
+      }
+    }
+  }
+}
+

@@ -1,0 +1,77 @@
+/*
+  A lock-based bounded queue,
+  include an abstraction defined with a 
+  ghost field.
+*/
+
+axiom (forall int x, int y :: 
+        0 <= x && x < y ==> x % y == x);
+axiom (forall int x, int y :: 
+        y <= x && x < (y+y) ==> x % y == x - y);
+axiom (forall int x :: 
+        0 < x ==> x % x == 0);
+
+class Queue {
+
+  // Concrete State
+
+  array T = int[moves_as holds(this) ? B : E];
+
+  [T] elems moves_as isLocal(this) ? B : readonly;
+
+  volatile int tail moves_as holds(this) ? B : E;
+  volatile int head moves_as holds(this) ? B : E;
+
+  invariant this.elems != null && this.elems.length == 512;
+  invariant 0 <= this.tail < 512;
+  invariant 0 <= this.head < 512;
+
+  // Abstract State
+
+  ghost Seq<int> spec;
+
+  invariant this.spec.length == (512 + this.tail - this.head) % 512;
+
+  invariant (forall int i :: 
+      (this.head <= i < this.tail) || 
+      (this.head > this.tail) && (this.head <= i < 512 || 0 <= i < this.tail)
+      ==> this.elems[i] == this.spec[(512 + i - this.head)%512]);
+
+  ensures this.spec == [ ];
+  public Queue() {
+    // spec, head, tail all zero/empty initialized
+    this.elems = new [T](512);
+  }
+
+  modifies this;
+  ensures this.spec == old(this.spec) ++ [x];
+  public void enqueue(int x) {
+    acquire(this);
+    while ((this.tail + 1) % 512 == this.head) 
+      invariant holds(this); {
+      release(this);
+      yield;
+      acquire(this);
+    }
+    this.elems[this.tail] = x;
+    this.tail = (this.tail + 1) % 512;
+    this.spec = this.spec ++ [x];
+    release(this);
+  }
+
+  modifies this;
+  ensures old(this.spec) == [$result] ++ this.spec;
+  public int dequeue() {
+    acquire(this);
+    while (this.tail == this.head) 
+      invariant holds(this); {
+      release(this);
+      yield;
+      acquire(this);
+    }
+    int result = this.elems[this.head];
+    this.head = (this.head + 1) % 512;
+    this.spec = this.spec[1..SeqLen(this.spec)];
+    return result;
+  }
+}

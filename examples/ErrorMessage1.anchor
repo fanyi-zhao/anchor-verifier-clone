@@ -1,0 +1,28 @@
+class Node {
+  int item  moves_as isLocal(this) ? B : (isRead() ? B : E);
+  Node next moves_as isLocal(this) ? B : (isRead() ? B : E);
+
+  Node(int item, Node next) {
+    this.item = item;
+    this.next = next;
+  }
+}
+
+class Stack {
+
+  Node head moves_as holds(this) ? B : E;
+
+  public void buggy() {
+    this.push(10);
+    // must acquire lock here
+    assert this.head.item == 10;
+  }
+
+  public void push(int item) {
+    acquire(this);
+    Node node = new Node(item, this.head);
+    this.head = node;
+    release(this);
+  }
+}
+

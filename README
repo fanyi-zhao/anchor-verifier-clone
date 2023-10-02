@@ -1,0 +1,32 @@
+Running the Anchor Web Service
+------------------------------
+
+The web component is tailored to our specific use.
+Your mileage may vary, and you may need to adjust
+some of the timeout and memory constants in 
+the python and anchor scripts.
+
+
+* To start the server:
+
+```
+python3.7 -u server.py -t 8080
+```
+
+Then connect to http://localhost:8080
+
+
+* It should be set up, but to install the editor and
+  create the web pages from scratch.  You can use the base
+  ACE implementation too -- you just won't get the Anchor
+  hilighting.
+
+```
+git clone https://github.com/stephenfreund/ace.git
+cd ace
+git checkout master
+npm install
+node Makefile.dryice.js full --target ./build
+make
+```
+
